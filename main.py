@@ -38,25 +38,16 @@ def increment_surrounding(board, y , x):
 
 
 def draw_board(board):
+	while board.bombs != 0:
+		#create new bombs based on bomb value in board object
+		new_bomb = Bomb(board)
 
-	if board.bombs > board.wd * board.ht:
-		print('too many bombs')
-		return
-	else:	
-		while board.bombs != 0:
-			#create new bombs based on bomb value in board object
-			new_bomb = Bomb(board)
-	
-			#add bombs to the grid
-			if board.grid[new_bomb.y][new_bomb.x] != new_bomb.name:
-				board.grid[new_bomb.y][new_bomb.x] = new_bomb.name	
-				increment_surrounding(board, new_bomb.y, new_bomb.x)
-				board.bombs -= 1								
+		#add bombs to the grid
+		if board.grid[new_bomb.y][new_bomb.x] != new_bomb.name:
+			board.grid[new_bomb.y][new_bomb.x] = new_bomb.name	
+			increment_surrounding(board, new_bomb.y, new_bomb.x)
+			board.bombs -= 1								
 	for line in board.grid:
 		for i in line:
 			print(i, end='  ')
 		print()
-
-new_board = Board(8,8,10)
-
-draw_board(new_board)
