@@ -1,0 +1,3 @@
+Need to add:
+ - first click guaranteed no bombs
+ - lock all buttons on win or lose case

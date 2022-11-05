@@ -19,10 +19,11 @@ class Bomb(): #create bomb object
 
 def increment_tile(board, tile_y, tile_x):
 	#increment the tile at the coordinates pass in
-	try:
-		board.grid[tile_y][tile_x] += 1
-	except (IndexError, TypeError):
-		pass
+	if tile_y in range(board.ht) and tile_x in range(board.wd):
+		try:
+			board.grid[tile_y][tile_x] += 1
+		except (IndexError, TypeError):
+			pass
 
 
 def increment_surrounding(board, y , x):
@@ -37,8 +38,9 @@ def increment_surrounding(board, y , x):
 	increment_tile(board, y, x - 1)
 
 
-def draw_board(board):
-	while board.bombs != 0:
+def populate_board(board):
+	i = board.bombs
+	while i != 0:
 		#create new bombs based on bomb value in board object
 		new_bomb = Bomb(board)
 
@@ -46,8 +48,5 @@ def draw_board(board):
 		if board.grid[new_bomb.y][new_bomb.x] != new_bomb.name:
 			board.grid[new_bomb.y][new_bomb.x] = new_bomb.name	
 			increment_surrounding(board, new_bomb.y, new_bomb.x)
-			board.bombs -= 1								
-	for line in board.grid:
-		for i in line:
-			print(i, end='  ')
-		print()
+			i -= 1								
+	return board
